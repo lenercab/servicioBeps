@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>COLP.BEPS.Servicios</groupId>
+    <artifactId>COLP.BEPS.Servicios</artifactId>
+    <version>0.0.1-PRO</version>
+  </parent>
+  <artifactId>COLP.BEPS.Servicios.Personas.BL</artifactId>
+  <name>COLP.BEPS.Servicios.Personas.BL</name>
+  <url>http://maven.apache.org</url>
+ 
+  <dependencies>
+    <dependency>
+      <groupId>COLP.BEPS.Servicios</groupId>
+      <artifactId>COLP.BEPS.Servicios.Comunes.DataContracts</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>COLP.BEPS.Servicios</groupId>
+      <artifactId>COLP.BEPS.Servicios.Personas.DataContracts</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>COLP.BEPS.Servicios</groupId>
+      <artifactId>COLP.BEPS.Servicios.Util</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+
+	<dependency>
+		<groupId>COLP.BEPS.Utilidades</groupId>
+		<artifactId>COLP.BEPS.Utilidades.logs</artifactId>
+		<version>${parent.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>COLP.BEPS.Utilidades</groupId>
+		<artifactId>COLP.BEPS.Utilidades.excepciones</artifactId>
+		<version>${parent.version}</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>COLP.BEPS.Servicios</groupId>
+      <artifactId>COLP.BEPS.Servicios.GeneradorNovedadesBUC.Proxy</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+	
+  </dependencies>
+</project>

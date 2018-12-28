@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="COLP.BEPS.Servicios.Vinculado">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
+        <dependent-module archiveName="COLP.BEPS.Servicios.Comunes.DataContracts-0.0.1-PRO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COLP.BEPS.Servicios.Comunes.DataContracts/COLP.BEPS.Servicios.Comunes.DataContracts">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="COLP.BEPS.Servicios.Personas.DataContracts-0.0.1-PRO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COLP.BEPS.Servicios.Personas.DataContracts/COLP.BEPS.Servicios.Personas.DataContracts">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="COLP.BEPS.Servicios.Personas.BL-0.0.1-PRO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COLP.BEPS.Servicios.Personas.BL/COLP.BEPS.Servicios.Personas.BL">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="COLP.BEPS.Servicios.GeneradorNovedadesBUC.Proxy-0.0.1-PRO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COLP.BEPS.Servicios.GeneradorNovedadesBUC.Proxy/COLP.BEPS.Servicios.GeneradorNovedadesBUC.Proxy">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="COLP.BEPS.Servicios.Util-0.0.1-PRO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COLP.BEPS.Servicios.Util/COLP.BEPS.Servicios.Util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="COLP.BEPS.Servicios.Vinculado"/>
+        <property name="java-output-path" value="/COLP.BEPS.Servicios.Vinculado/target/classes"/>
+    </wb-module>
+</project-modules>

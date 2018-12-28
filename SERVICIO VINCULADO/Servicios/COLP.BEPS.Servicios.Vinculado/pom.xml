@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>COLP.BEPS.Servicios</groupId>
+		<artifactId>COLP.BEPS.Servicios</artifactId>
+		<version>0.0.1-PRO</version>
+	</parent>
+	<artifactId>COLP.BEPS.Servicios.Vinculado</artifactId>
+	<packaging>war</packaging>
+	<name>COLP.BEPS.Servicios.Vinculado Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>COLP.BEPS.Servicios</groupId>
+			<artifactId>COLP.BEPS.Servicios.Comunes.DataContracts</artifactId>
+			<version>0.0.1-PRO</version>
+		</dependency>
+		<dependency>
+			<groupId>COLP.BEPS.Servicios</groupId>
+			<artifactId>COLP.BEPS.Servicios.Personas.DataContracts</artifactId>
+			<version>0.0.1-PRO</version>
+		</dependency>
+		<dependency>
+			<groupId>COLP.BEPS.Servicios</groupId>
+			<artifactId>COLP.BEPS.Servicios.Personas.BL</artifactId>
+			<version>0.0.1-PRO</version>
+		</dependency>
+		<dependency>
+			<groupId>COLP.BEPS.Utilidades</groupId>
+			<artifactId>COLP.BEPS.Utilidades.logs</artifactId>
+			<version>0.0.1-PRO</version>
+		</dependency>
+						
+		<!-- Librerias para definicion de servicio como EJB para configuracion WSSecurity  -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			<version>1.0.0.Final</version>	
+			<scope>provided</scope> 		
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<version>1.0.1.Final</version>
+			<scope>provided</scope> 
+		</dependency>	
+		<dependency>
+			<groupId>COLP.BEPS.Servicios</groupId>
+			<artifactId>COLP.BEPS.Servicios.Util</artifactId>
+			<version>0.0.1-PRO</version>
+		</dependency>	
+		
+		<dependency>
+			<groupId>org.picketbox</groupId>
+			<artifactId>picketbox</artifactId>
+			<version>4.0.7.Final</version>
+		</dependency>	
+	</dependencies>
+	<build>
+		<finalName>COLP.BEPS.Servicios.Vinculado</finalName>
+		<!-- Se configura el archivo MANIFEST.MF estatico para configuracion WSSecurity  -->
+		<plugins>		
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <configuration>
+	          <archive>
+				  <manifestEntries>
+				    <Dependencies>org.apache.ws.security, org.apache.cxf</Dependencies>
+				  </manifestEntries>
+	          </archive>
+	        </configuration>
+	      </plugin>
+	    </plugins>
+	</build>
+</project>

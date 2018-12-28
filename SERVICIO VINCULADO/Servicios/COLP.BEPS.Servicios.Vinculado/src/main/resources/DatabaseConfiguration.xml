@@ -1,0 +1,1739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:DatabaseConfiguration
+	xmlns:tns="http://www.example.org/DatabaseConfiguration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/DatabaseConfiguration DatabaseConfiguration.xsd ">
+	<tns:DriverClass></tns:DriverClass>
+	<tns:ConnectionURL></tns:ConnectionURL>
+	<tns:User></tns:User>
+	<tns:Password></tns:Password>
+	<tns:MetadataQueries>
+
+        <!-- Consulta para validar la existencia de un vinculado sobre el sistema 
+            BEPS -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarVinculado</tns:QueryName>
+            <tns:CommandText>select vpe_pk_id
+				from vinculacion.vinc_persona 
+				inner join vinculacion.vinc_vinculado
+				on vvi_pk_id = vpe_pk_id
+				where vpe_tipo_documento = ?
+				and vpe_numero_documento = ?
+				and vvi_tipo_vinculado = 'V'
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpe_tipo_documento</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpe_numero_documento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Consulta para validar la existencia de un vinculado sobre el sistema 
+            BEPS -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarVinculadoDatosModificados</tns:QueryName>
+            <tns:CommandText>select vpe_pk_id,ISNULL(vvi_id_buc,0)
+				from vinculacion.vinc_persona 
+				inner join vinculacion.vinc_vinculado
+				on vvi_pk_id = vpe_pk_id
+				where vpe_tipo_documento = ?
+				and vpe_numero_documento = ?
+				and vvi_tipo_vinculado = 'V'
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpe_tipo_documento</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpe_numero_documento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- Actualiza la informacion sensible de un vinculado sobre el sistema 
+            BEPS -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_ActualizarVinculado</tns:QueryName>
+            <tns:CommandText>vinculacion.pr_vinc_actualizar_info_sensible(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            </tns:CommandText>
+            <tns:Parameters>
+                 <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@genero</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaExpedicion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@municipioExpedicion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numeroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canalSistema</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@idRegistroPersona</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@codigoEjecucion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>5</tns:ParameterScale>
+                </tns:Parameter>   
+                <tns:Parameter>
+                    <tns:ParameterName>@mensaje</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>100</tns:ParameterScale>
+                </tns:Parameter>             
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- Procedimiento almacenado que actualiza informacion del vinculado sobre 
+            el sistema de cuentas individuales - Plenitud -->
+        <tns:MetadataQuery>
+            <tns:QueryName>AS400StoredProcedure_Actualiza_Vinculado</tns:QueryName>
+            <tns:CommandText>BEPSPRO070.SP_Actualiza_Vinculado (? , ? , ?,  ? , ? , ? , ? , ? , ? , ?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>ZIdentificacion</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>11</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZTipoIdentifica</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZPrimerNombre</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>10</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZPrimerApellido</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSegundoNombre</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>10</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSegundoApellido</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZFechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSexo</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZCodigoError</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZMensajeError</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>132</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- Ejecucion de un SP que consulta la viabilidad de un vinculado sobre 
+            el sistema BEPS -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_Consulta_Viabilidad</tns:QueryName>
+            <tns:CommandText>vinculacion.pr_vinc_consultar_viabilidad(? , ? , ? )
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipoDocumento</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numeroDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipoDatos</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- Consulta un prospecto, asigna la información de un prospecto a vinculado 
+            y elimina el prospecto -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_CrearVinculado</tns:QueryName>
+            <tns:CommandText>BEPS_TRANSACCIONAL.vinculacion.pr_vinc_crearVinculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipoDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>14</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaPrin</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaSec</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaEnvioComunicacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaManejoInformacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuarioVinculacion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuarioRegistro</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+					<tns:ParameterName>@canalSistema</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>30</tns:ParameterScale>
+				</tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numeroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaVinculacion</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@identificadorVinculado</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@genero</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+
+        <!-- Procedimiento almacenado que crea la cuenta individual en Plenitud -->
+        <tns:MetadataQuery>
+            <tns:QueryName>AS400StoredProcedure_CrearCuentaInividual</tns:QueryName>
+            <tns:CommandText>BEPSPRO070.SP_Solicitud_Vinculacion (? , ? , ?, ? ,?,
+                ? , ? , ? , ? , ?, ?, ?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>ZIdentificacion</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>11</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZTipoIdentifica</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZPrimerNombre</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>10</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZPrimerApellido</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSegundoNombre</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>10</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSegundoApellido</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZFechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSexo</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                 <tns:Parameter>
+                    <tns:ParameterName>ZFechaCreaCuenta</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZEstadoSolicitud</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZCodigoError</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZMensajeError</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>132</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- cambiar el estado de la cuenta del vinculado para el vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_CambiarEstadoCtaInd</tns:QueryName>
+            <tns:CommandText>UPDATE [vinculacion].[vinc_vinculado] SET
+                vvi_con_cta_individual = ?, 
+                vvi_estado_notifica_cta_indivi = ?, 
+				vvi_fecha_notificacion_bizagi = ? 
+				WHERE vvi_pk_id = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@estadoCuenta</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+					<tns:ParameterName>@notificacionCuentaIndividual</tns:ParameterName>
+					<tns:ParameterType>TINYINT</tns:ParameterType>
+					<tns:ParameterScale></tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@fechaNotificacion</tns:ParameterName>
+					<tns:ParameterType>TIMESTAMP</tns:ParameterType>
+					<tns:ParameterScale></tns:ParameterScale>
+				</tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+			 </tns:Parameters>
+        </tns:MetadataQuery>
+
+
+        <!-- Asociar la lista de direcciones al vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_adicionarContactoDireccionVinculado</tns:QueryName>
+            <tns:CommandText>INSERT INTO
+                BEPS_TRANSACCIONAL.[vinculacion].[vinc_direccion]
+                ([vdi_fk_id_persona],[vdi_codigo_municipio],[vdi_direccion],[vdi_direccion_principal],[vdi_usuario_ultimo_cambio],[vdi_numero_radicado],[vdi_canal_sistema])
+                VALUES (?,(select vmu_codigo_dane_municipio
+                from BEPS_TRANSACCIONAL.[parametricas].[vinc_municipio] m where
+                m.vmu_codigo_dane_municipio=?),?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@codMunicipio</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>5</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@direccion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>60</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+
+        <!-- Asociar la lista de teléfonos al vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_adicionarContactoTelefonoVinculado</tns:QueryName>
+            <tns:CommandText>INSERT INTO
+                BEPS_TRANSACCIONAL.[vinculacion].[vinc_telefono]
+                ([vte_fk_id_persona],
+                [vte_telefono],
+                [vte_indicativo_pais],
+                [vte_indicativo_ciudad],
+                [vte_extension],
+                [vte_telefono_principal],
+                [vte_tipo],
+                [vte_usuario_ultimo_cambio],
+                [vte_numero_radicado],
+                [vte_canal_sistema])
+                VALUES (?,?,?,?,?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@telefono</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@indPais</tns:ParameterName>
+                    <tns:ParameterType>NUMERIC</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@indCiudad</tns:ParameterName>
+                    <tns:ParameterType>NUMERIC</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@extension</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+					<tns:ParameterName>@tipo</tns:ParameterName>
+					<tns:ParameterType>CHAR</tns:ParameterType>
+					<tns:ParameterScale>2</tns:ParameterScale>
+				</tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+
+        <!-- Asociar la lista de emails al vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_adicionarContactoEmailVinculado</tns:QueryName>
+            <tns:CommandText>
+                INSERT INTO
+                BEPS_TRANSACCIONAL.[vinculacion].[vinc_email]
+                ([vem_fk_id_persona],[vem_email],[vem_email_principal],[vem_usuario_ultimo_cambio],[vem_numero_radicado],[vem_canal_sistema])
+                VALUES (?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@email</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>255</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Metodo que actualiza la informacion NO sensible de un vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ActualizarInformacionNoSensibleVinculado</tns:QueryName>
+            <tns:CommandText>UPDATE BEPS_TRANSACCIONAL.vinculacion.vinc_vinculado
+			   set vvi_autorizacion_manejo_info = ?
+			      ,vvi_autorizacion_envio_info = ?
+			      ,vvi_actividad = ?
+			      ,vvi_actividad_secundaria = ?
+			      ,vvi_usuario_ultimo_cambio = ?
+			      ,vvi_numero_radicado = ?
+			      ,vvi_canal_vinculacion = ?
+			      ,vvi_canal_sistema = ?
+			  where vvi_pk_id = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaManejoInformacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaEnvioComunicacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaPrincipal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaSecundaria</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuarioUltimoCambio</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numeroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>                  
+                <tns:Parameter>
+                    <tns:ParameterName>@canalVinculacion</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter> 
+                <tns:Parameter>
+                    <tns:ParameterName>@canalSistema</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter> 
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>        
+        
+        <!-- Metodo que elimina un conjunto de direcciones -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_EliminarDireccionVinculado</tns:QueryName>
+            <tns:CommandText>delete from BEPS_TRANSACCIONAL.vinculacion.vinc_direccion
+   				where vdi_fk_id_persona = ?
+   				and vdi_pk_id not in ( select valor_entero 
+   				                       from parametricas.fn_conversion_cadena( ? ,',')  
+   				                       where valor_entero is not null )
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@listaIdDireccion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>300</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+         <!-- Actualizar la lista de direcciones del vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ActualizarContactoDireccionVinculado</tns:QueryName>
+            <tns:CommandText>update BEPS_TRANSACCIONAL.[vinculacion].[vinc_direccion]
+                set vdi_codigo_municipio = ?
+                ,vdi_direccion = ?
+                ,vdi_direccion_principal = ?
+                ,vdi_usuario_ultimo_cambio = ?
+                ,vdi_numero_radicado = ?
+                ,vdi_canal_sistema = ?
+				where vdi_pk_id = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@codMunicipio</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>5</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@direccion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>60</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@idRegistro</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+       <!-- Metodo que elimina un conjunto de telefonos -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_EliminarTelefonoVinculado</tns:QueryName>
+            <tns:CommandText>delete from BEPS_TRANSACCIONAL.vinculacion.vinc_telefono
+   				where vte_fk_id_persona = ?
+   				and vte_pk_id not in ( select valor_entero 
+   				                       from parametricas.fn_conversion_cadena( ? ,',')  
+   				                       where valor_entero is not null )
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@listaIdTelefono</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>300</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Actualizar la lista de teléfonos del vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ActualizarContactoTelefonoVinculado</tns:QueryName>
+            <tns:CommandText>update BEPS_TRANSACCIONAL.vinculacion.vinc_telefono
+                set vte_telefono = ?
+                ,vte_tipo = ?
+                ,vte_extension = ?
+                ,vte_telefono_principal = ?
+                ,vte_usuario_ultimo_cambio = ?
+                ,vte_numero_radicado = ?
+                ,vte_canal_sistema = ?
+                where vte_pk_id = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@telefono</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipo</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@extension</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@idRegistro</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Metodo que elimina un conjunto de correos electrónicos -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_EliminarEmailVinculado</tns:QueryName>
+            <tns:CommandText>delete from BEPS_TRANSACCIONAL.vinculacion.vinc_email
+   				where vem_fk_id_persona = ?
+   				and vem_pk_id not in ( select valor_entero 
+   				                       from parametricas.fn_conversion_cadena( ? ,',')  
+   				                       where valor_entero is not null )
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idPersona</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@listaIdEmail</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>300</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Actualizar la lista de emails del vinculado -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ActualizarContactoEmailVinculado</tns:QueryName>
+            <tns:CommandText>update BEPS_TRANSACCIONAL.vinculacion.vinc_email
+                set vem_email = ?
+                ,vem_email_principal = ?
+                ,vem_usuario_ultimo_cambio = ?
+                ,vem_numero_radicado = ?
+                ,vem_canal_sistema = ?
+                where vem_pk_id = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@email</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>255</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@principal</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@radicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@idRegistro</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Consultar el genero -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarGenero</tns:QueryName>
+			<tns:CommandText>
+				SELECT * FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_homologacion] 
+  				WHERE [vho_valor_beps]=? or [vho_valor_plenitud] = ?
+			</tns:CommandText>
+			<tns:Parameters>
+				<tns:Parameter>
+					<tns:ParameterName>@generoBeps</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>10</tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@generoBepsNum</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>10</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+		
+		<!-- Consultar Fecha inicio Programa Beps-->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarParametroVinculacion</tns:QueryName>
+			<tns:CommandText>
+				SELECT [pg_valor] FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_parametros_generales]
+  				WHERE [pg_nombre] = ?
+			</tns:CommandText>
+			<tns:Parameters>
+				<tns:Parameter>
+					<tns:ParameterName>@nombreParametro</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>10</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+		
+		<!-- Consulta la información de un vinculado.-->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_ConsultarInformacionVinculado</tns:QueryName>
+            <tns:CommandText>BEPS_TRANSACCIONAL.vinculacion.pr_vinc_consultarInformacionVinculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipoDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>14</tns:ParameterScale>
+                </tns:Parameter>
+                
+                <tns:Parameter>
+                    <tns:ParameterName>@primerApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@genero</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaVinculacion</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@telefono</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@codDaneDepto</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@codDaneMunc</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>5</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@direccion</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>80</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@email</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>255</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@celular</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+		
+		
+		<!-- Consulta para validar la existencia de un número de documento como vinculado en Beps-->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarVinculadoNumIdentificacion</tns:QueryName>
+            <tns:CommandText>
+            	SELECT vpe_pk_id
+				FROM vinculacion.vinc_persona 
+				INNER JOIN vinculacion.vinc_vinculado ON vvi_pk_id = vpe_pk_id
+				WHERE vpe_numero_documento = ?
+				AND vvi_tipo_vinculado = 'V'
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpe_numero_documento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Procedimiento almacenado que consulta la información de saldos y movimientos. -->
+        <tns:MetadataQuery>
+            <tns:QueryName>AS400StoredProcedure_ConsultarSaldosMovimientos</tns:QueryName>
+            <tns:CommandText>BEPSPRO070.SP_Consulta_Saldos_Tipo_Aporte(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>ZETIPODOCUMENTO</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZEIDENTIFICA</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>11</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZEFECHAINICIAL</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZEFECHAFINAL</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZNUMCUENTA</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>11</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSESTADOCUENTA</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSFECHAAPERTURA</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSFECHACANCELA</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSMOTIVOCANCELA</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSVALTASAEANUAL</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>5</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSAPORTESANTES</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSAPORTESDURANT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSTOTALAPORTES</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSALACUMINTANT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSALACUMINTDUR</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSALACUMINTTOT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSADMINISTRACIO</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSGMF</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZRETIROSDURANTE</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSALDOFINTOT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSINCENTIVOPER</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSALACUMUNIANT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>21</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSVALORUNIINI</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>21</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSTOTAUNIAPORT</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>21</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSVALORUNIFINAL</tns:ParameterName>
+                    <tns:ParameterType>DECIMAL</tns:ParameterType>
+                    <tns:ParameterScale>21</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSCODERROR</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZSMENSAJEERROR</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>132</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        <!-- Consulta para validar la existencia del tipo de documento del vinculado.-->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarTipoIdentificacion</tns:QueryName>
+            <tns:CommandText>
+            	SELECT vti_cod_beps FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_tipo_identificacion]
+            </tns:CommandText>
+        </tns:MetadataQuery>
+        
+        <!-- Consulta para validar el endPoint de Generacion Novedades BUC  -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarParametrosBucPorNombre</tns:QueryName>
+            <tns:CommandText>select vpb_valor
+				from parametricas.vinc_parametros_buc 
+				where vpb_nombre = ?
+			</tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@vinc_param_nombre</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        <!-- Inserta en la tabla de bitácora de novedades BUC, la novedad que se debe procesar  -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_InsertarNovedadBuc</tns:QueryName>
+            <tns:CommandText>INSERT INTO vinculacion.vinc_bitacora_novedades_buc
+             (bnb_id_vinculado_sgb,bnb_tipo_novedad,bnb_estado_novedad,bnb_fecha_registro,bnb_usuario_negocio
+             ,bnb_datos_novedad)
+			VALUES (?,?,?, GETDATE(),?,?)
+			</tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@id_vinculado_sgb</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipo_novedad</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@estado_novedad</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuario_negocio</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@datos_novedad</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>MAX</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery><!-- Consulta de las novedades pendientes de BUC  -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_consultarNovedadesPendientesBUC</tns:QueryName>
+            <tns:CommandText>SELECT count(*) as numRegistros  FROM vinculacion.vinc_bitacora_novedades_buc
+             where bnb_id_vinculado_sgb=?  and  bnb_estado_novedad in(?,?)
+			</tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@id_vinculado_sgb</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@estado_novedad1</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@estado_novedad2</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+           </tns:Parameters>
+        </tns:MetadataQuery>
+        <!-- Procedimiento almacenado que permite consultar las direcciones, teléfonos o correos de un vinculado para BUC -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_ConsultarInfoDatosNoSensibles</tns:QueryName>
+            <tns:CommandText>BEPS_TRANSACCIONAL.vinculacion.pr_consultar_info_no_sensible_BUC(?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@id_vinculado</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@consultar_direcciones</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@consultar_correos</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@consultar_telefonos</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+           </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        
+        <!-- CONSULTAR PARA GVI-VIN-3-FAB-12-ConsultarTransicionesDeEstadoPermitidas -->
+         <!-- Consultar todos las transiciones de estados permitidos -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarTransicionesEstadoPermitida</tns:QueryName>
+			<tns:CommandText>
+				select [vte_estado_inicial] as estadoInicial,[vte_detalle_estado_inicial] as detalleInicial,[vte_estado_final] as estadoFinal,[vte_detalle_estado_final] as detalleFinal,[vte_reactiva_cuenta] as reactiva,[vte_cancela_cuenta] as cancela 
+				from parametricas.vinc_transicion_estado
+			</tns:CommandText>
+		</tns:MetadataQuery>
+		
+		 <!-- Consultar los vinculados y su estado -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarEstadoDetalleVinculado</tns:QueryName>
+			<tns:CommandText>				 
+				select persona.vpe_tipo_documento as documento,persona.vpe_numero_documento as numero, estado.vev_pk_estado as estado,detalle.vde_pk_codigo as detalle from vinculacion.vinc_persona as persona
+				inner join vinculacion.vinc_vinculado as vinculado on vinculado.vvi_pk_id = persona.vpe_pk_id
+				left Join parametricas.vinc_detalle_estado_vinculado as detalle on detalle.vde_pk_codigo=vinculado.vvi_detalle_estado_vinculado
+				inner join parametricas.vinc_estado_vinculado as estado on estado.vev_pk_estado=vinculado.vvi_estado_vinculado
+				where persona.vpe_tipo_documento ='CC'
+				and vinculado.vvi_tipo_vinculado='V'
+				and persona.vpe_numero_documento in (%vinculados%)
+			</tns:CommandText>
+		</tns:MetadataQuery>
+		<!-- Consultar los estados parametrizados -->
+	    <tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarEstadosParametricos</tns:QueryName>
+			<tns:CommandText>
+				SELECT [vev_pk_estado] as estado
+				FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_estado_vinculado]
+			</tns:CommandText>
+		</tns:MetadataQuery>
+		<!-- Consultar los detalle estados parametrizados -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarDetalleEstadosParametricos</tns:QueryName>
+			<tns:CommandText>
+				SELECT [vde_pk_codigo] as detalleEsado     
+  				FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_detalle_estado_vinculado]
+			</tns:CommandText>
+		</tns:MetadataQuery>
+		
+		<!-- CONSULTAR PARA GVI-VIN-3-FAB-13-RealizarCambioEstadoVinculado -->
+		<!-- procedimiento almacenado de plenitud para activar o desactivar cuenta. -->
+        <tns:MetadataQuery>
+            <tns:QueryName>AS400StoredProcedure_ActualizaEstadoCuenta</tns:QueryName>
+            <tns:CommandText>BEPSPRO070.SP_Actualiza_Estado_Cuenta(? , ? , ? , ? , ?)</tns:CommandText>
+            <tns:Parameters>
+              <tns:Parameter>
+                    <tns:ParameterName>ZIDVINCULADO</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>11</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZOPERACION</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZCAUSACANC</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZCODERROR</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>7</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>ZMENSAERROR</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>132</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+		
+		<!-- Crear el registro Historico -->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_CrearHistoricoEstado</tns:QueryName>
+            <tns:CommandText>
+            INSERT INTO [vinculacion].[vinc_historico_estados]
+           ([vhe_id_vinculado]
+           ,[vhe_estado_anterior]
+           ,[vhe_detalle_estado_anterior]
+           ,[vhe_estado_nuevo]
+           ,[vhe_detalle_estado_nuevo]
+           ,[vhe_fecha_cambio_estado]
+           ,[vhe_origen_cambio]
+           ,[vhe_referencia_cambio])
+     		VALUES
+           ((select persona.vpe_pk_id from vinculacion.vinc_persona as persona
+				inner join vinculacion.vinc_vinculado as vinculado on vinculado.vvi_pk_id = persona.vpe_pk_id
+				where persona.vpe_tipo_documento ='CC'
+				and vinculado.vvi_tipo_vinculado='V'
+				and persona.vpe_numero_documento = ?),?,?,?,?,GETDATE(),?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@idVinculado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@estadoAnterior</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@detalleEstadoAnterior</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@estadoNuevo</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@detalleEstadoNuevo</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@origenCambio</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@referenciaCambio</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+		
+		<!-- Cambiar estado y detalle estado Vinculado -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_CambiarEstadoDetalleVinculado</tns:QueryName>
+			<tns:CommandText>UPDATE vinculacion.vinc_vinculado
+				   SET [vvi_estado_vinculado] = ?
+				      ,[vvi_detalle_estado_vinculado] = ?
+				     
+				 WHERE [vvi_pk_id]=(select persona.vpe_pk_id from vinculacion.vinc_persona as persona
+				inner join vinculacion.vinc_vinculado as vinculado on vinculado.vvi_pk_id = persona.vpe_pk_id
+				where persona.vpe_tipo_documento ='CC'
+				and vinculado.vvi_tipo_vinculado='V'
+				and persona.vpe_numero_documento = ?)
+			</tns:CommandText>
+			<tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@estado</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@detalleEstado</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>3</tns:ParameterScale>
+                </tns:Parameter>	
+                <tns:Parameter>
+                    <tns:ParameterName>@idVinculado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>		
+			</tns:Parameters>
+		</tns:MetadataQuery>
+		
+		
+		<!-- actualiza información de vinculado para realizar la re activación -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_ReActivarVinculado</tns:QueryName>
+            <tns:CommandText>BEPS_TRANSACCIONAL.vinculacion.pr_vinc_reActivarVinculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@tipoDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>14</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaPrin</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@actividadEconomicaSec</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>4</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaEnvioComunicacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@autorizaManejoInformacion</tns:ParameterName>
+                    <tns:ParameterType>BIT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuarioVinculacion</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@usuarioRegistro</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+					<tns:ParameterName>@canalSistema</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>30</tns:ParameterScale>
+				</tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@canal</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>2</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@numeroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaVinculacion</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@validacion</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@identificadorVinculado</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+                 <tns:Parameter>
+                    <tns:ParameterName>@idnovedad</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale>8</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoApellido</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@primerNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@segundoNombre</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@genero</tns:ParameterName>
+                    <tns:ParameterType>CHAR</tns:ParameterType>
+                    <tns:ParameterScale>1</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@fechaNacimiento</tns:ParameterName>
+                    <tns:ParameterType>DATE</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+          <!-- Consultar si es posible realizar la reactivación  -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarGenero</tns:QueryName>
+			<tns:CommandText>
+				SELECT * FROM [BEPS_TRANSACCIONAL].[parametricas].[vinc_homologacion] 
+  				WHERE [vho_valor_beps]=? or [vho_valor_plenitud] = ?
+			</tns:CommandText>
+			<tns:Parameters>
+				<tns:Parameter>
+					<tns:ParameterName>@generoBeps</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>10</tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@generoBepsNum</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>10</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+		
+		<!-- Consultar si es prospecto  -->
+		 <tns:MetadataQuery>
+            <tns:QueryName>PR_ConsultarProspecto</tns:QueryName>
+            <tns:CommandText>SELECT [vpp_pk_id]
+  							FROM [BEPS_TRANSACCIONAL].[prevalidacion].[vinc_persona_prospecto]
+  							WHERE [vpp_numero_documento] = ?
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@vpp_numero_documento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        
+         <!-- Ejecucion de un SP que consulta si la persona es valida para re activación -->
+        <tns:MetadataQuery>
+            <tns:QueryName>StoredProcedure_Valida_Reactivacion</tns:QueryName>
+            <tns:CommandText>vinculacion.pr_vinc_validarReactivacion(?,?,?)
+            </tns:CommandText>
+            <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@numDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                 <tns:Parameter>
+                    <tns:ParameterName>@nroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+                  <tns:Parameter>
+                    <tns:ParameterName>@respuesta</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter> 
+            </tns:Parameters>
+        </tns:MetadataQuery>
+        
+        
+		   	<!-- Sentencia que actualiza el registro en la bitacora -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ActualizarBitacora</tns:QueryName>
+			<tns:CommandText>UPDATE BEPS_TRANSACCIONAL.vinculacion.vinc_bitacora_actualiza_estado_cta
+  							    set vbra_estado_cuenta = ?,
+  							    	vbra_estado_reintento = ?
+  							  where vbra_numero_documento = ?	
+  							  AND vbra_num_radicado = ?				   						 		
+			</tns:CommandText>
+			<tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@estadoCta</tns:ParameterName>
+                   	<tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+                </tns:Parameter>
+                <tns:Parameter>
+					<tns:ParameterName>@estadoReintento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>20</tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@nroDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+				</tns:Parameter>
+                <tns:Parameter>
+                    <tns:ParameterName>@nroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>50</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+		</tns:MetadataQuery>
+		
+			<!-- Crear el registro en bitacora actualiza estado cuenta-->
+        <tns:MetadataQuery>
+            <tns:QueryName>PR_InsertaBitacoraAct</tns:QueryName>
+            <tns:CommandText>
+            INSERT INTO [vinculacion].[vinc_bitacora_actualiza_estado_cta]
+							([vbra_numero_documento]
+							,[vbra_num_radicado]
+							,[vbra_fecha_ejecucion]
+							,[vbra_estado_cuenta]
+							,[vbra_num_intentos_procesados]
+							,[vbra_id_transaccion_log])
+				VALUES(?,?,GETDATE(),'C',0,'')
+            </tns:CommandText>
+             <tns:Parameters>
+                <tns:Parameter>
+                    <tns:ParameterName>@numDocumento</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>15</tns:ParameterScale>
+                </tns:Parameter>
+                 <tns:Parameter>
+                    <tns:ParameterName>@nroRadicado</tns:ParameterName>
+                    <tns:ParameterType>VARCHAR</tns:ParameterType>
+                    <tns:ParameterScale>30</tns:ParameterScale>
+                </tns:Parameter>
+            </tns:Parameters>
+        </tns:MetadataQuery>
+		
+		
+        <!-- Sentencia para actualizar el estado del vinculado a Notificado exitosamente  a Bizagi  -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ActualizarNotificacionBizagi</tns:QueryName>
+			<tns:CommandText>  UPDATE BEPS_TRANSACCIONAL.vinculacion.vinc_vinculado
+							SET vvi_fecha_notificacion_bizagi = GETDATE()
+							WHERE vvi_pk_id = ?	
+			</tns:CommandText>
+			 <tns:Parameters>
+			  <tns:Parameter>
+                    <tns:ParameterName>@id_vinculado</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+             </tns:Parameters>
+		</tns:MetadataQuery>
+		
+ <!-- Sentencia para actualizar el estado del vinculado a Notificado exitosamente  a Bizagi  -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ActualizarNotificacionBizagiReactiva</tns:QueryName>
+			<tns:CommandText>  UPDATE BEPS_TRANSACCIONAL.vinculacion.vinc_vinculado
+							SET vvi_fecha_notificacion_bizagi = GETDATE(),
+								vvi_estado_notifica_cta_indivi = 1			
+							WHERE vvi_pk_id = ?	
+			</tns:CommandText>
+			 <tns:Parameters>
+			  <tns:Parameter>
+                    <tns:ParameterName>@id_vinculado</tns:ParameterName>
+                    <tns:ParameterType>BIGINT</tns:ParameterType>
+                    <tns:ParameterScale></tns:ParameterScale>
+                </tns:Parameter>
+             </tns:Parameters>
+		</tns:MetadataQuery>
+	
+         <!-- Consultar todos las transiciones de estados permitidos para retiros -->
+		<tns:MetadataQuery>
+			<tns:QueryName>PR_ConsultarTransicionesEstadoPermitidaRetiro</tns:QueryName>
+			<tns:CommandText>
+				select [vter_estado_inicial] as estadoInicial,[vter_detalle_estado_inicial] as detalleInicial,[vter_estado_final] as estadoFinal,[vter_detalle_estado_final] as detalleFinal,[vter_reactiva_cuenta] as reactiva,[vter_cancela_cuenta] as cancela 
+				from parametricas.vinc_transicion_estado_retiro
+			</tns:CommandText>
+		</tns:MetadataQuery>
+
+
+    </tns:MetadataQueries>
+</tns:DatabaseConfiguration>
